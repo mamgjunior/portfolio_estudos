@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="col-md-8 offset-md-2">
+    <h1>Blog Index</h1>
+    <hr>
+
+    {% for postagem in postagens  %}
+    <h2><a href="{% url 'blog_detail' postagem.pk %}">{{ postagem.titulo }}</a></h2>
+    <small>
+        {{ postagem.criada_em.date }} |&nbsp;
+        Categorias:&nbsp;
+        {% for categoria in postagem.categorias.all %}
+        <a href="{% url 'blog_category' categoria.name %}">{{ categoria.name }}</a>&nbsp;
+        {% endfor %}
+    </small>
+    <p>{{ postagem.postagem | slice:"400" }}...</p>
+    {% endfor %}
+
+</div>
+{% endblock %}
